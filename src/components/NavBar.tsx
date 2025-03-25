@@ -21,8 +21,12 @@ const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const scrollToSection = (id: string) => {
+    setIsMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -33,7 +37,14 @@ const NavBar = () => {
       )}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2">
+        <a 
+          href="#home" 
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection('home');
+          }}
+          className="flex items-center gap-2"
+        >
           <div className="h-8 w-8 rounded-full bg-bitcoin flex items-center justify-center rotate-12 transform hover:rotate-0 transition-transform duration-300">
             <span className="text-white font-bold text-lg">₿</span>
           </div>
@@ -42,10 +53,42 @@ const NavBar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#home" className="text-sm font-medium hover:text-primary transition-colors">Home</a>
-          <a href="#predictions" className="text-sm font-medium hover:text-primary transition-colors">Predictions</a>
-          <a href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">How It Works</a>
-          <Button variant="default" size="sm" className="ml-4 bg-gradient-to-r from-bitcoin to-bitcoin-dark hover:shadow-glow transition-all duration-300">
+          <a 
+            href="#home" 
+            className="text-sm font-medium hover:text-primary transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('home');
+            }}
+          >
+            Home
+          </a>
+          <a 
+            href="#predictions" 
+            className="text-sm font-medium hover:text-primary transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('predictions');
+            }}
+          >
+            Predictions
+          </a>
+          <a 
+            href="#how-it-works" 
+            className="text-sm font-medium hover:text-primary transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('how-it-works');
+            }}
+          >
+            How It Works
+          </a>
+          <Button 
+            variant="default" 
+            size="sm" 
+            className="ml-4 bg-gradient-to-r from-bitcoin to-bitcoin-dark hover:shadow-glow transition-all duration-300"
+            onClick={() => scrollToSection('predictions')}
+          >
             Get Started
           </Button>
         </nav>
@@ -53,7 +96,7 @@ const NavBar = () => {
         {/* Mobile Menu Trigger */}
         <button 
           className="md:hidden text-foreground p-2"
-          onClick={toggleMobileMenu}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -71,25 +114,39 @@ const NavBar = () => {
           <a 
             href="#home" 
             className="text-xl font-medium py-2"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('home');
+            }}
           >
             Home
           </a>
           <a 
             href="#predictions" 
             className="text-xl font-medium py-2"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('predictions');
+            }}
           >
             Predictions
           </a>
           <a 
             href="#how-it-works" 
             className="text-xl font-medium py-2"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('how-it-works');
+            }}
           >
             How It Works
           </a>
-          <Button variant="default" size="lg" className="mt-6 w-full sm:w-auto bg-gradient-to-r from-bitcoin to-bitcoin-dark">
+          <Button 
+            variant="default" 
+            size="lg" 
+            className="mt-6 w-full sm:w-auto bg-gradient-to-r from-bitcoin to-bitcoin-dark"
+            onClick={() => scrollToSection('predictions')}
+          >
             Get Started
           </Button>
         </div>

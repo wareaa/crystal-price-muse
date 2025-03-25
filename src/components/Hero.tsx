@@ -11,7 +11,8 @@ const Hero = () => {
 
   useEffect(() => {
     // Initial price
-    setCurrentPrice(getCurrentPrice());
+    const initialPrice = getCurrentPrice();
+    setCurrentPrice(initialPrice);
     
     // Update price every 5 seconds
     const interval = setInterval(() => {
@@ -45,10 +46,10 @@ const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <Button size="lg" className="bg-gradient-to-r from-bitcoin to-bitcoin-dark hover:shadow-glow transition-all duration-300">
+              <Button size="lg" className="bg-gradient-to-r from-bitcoin to-bitcoin-dark hover:shadow-glow transition-all duration-300" onClick={() => document.getElementById('predictions')?.scrollIntoView({ behavior: 'smooth' })}>
                 View Predictions <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
                 Learn More
               </Button>
             </div>

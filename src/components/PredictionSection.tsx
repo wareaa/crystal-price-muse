@@ -14,6 +14,7 @@ const PredictionSection = () => {
     nextWeek: 0,
     nextMonth: 0
   });
+  const [showDetails, setShowDetails] = useState(false);
   
   useEffect(() => {
     setCurrentPrice(getCurrentPrice());
@@ -25,6 +26,10 @@ const PredictionSection = () => {
       nextMonth: getPrediction('1M')
     });
   }, []);
+
+  const handleLearnMore = () => {
+    setShowDetails(!showDetails);
+  };
 
   const features = [
     {
@@ -102,10 +107,22 @@ const PredictionSection = () => {
             </div>
             
             <div className="mt-8">
-              <Button className="bg-gradient-to-r from-bitcoin to-bitcoin-dark hover:shadow-glow transition-all duration-300">
-                Learn More About Our Technology <ArrowRight className="ml-2 h-4 w-4" />
+              <Button className="bg-gradient-to-r from-bitcoin to-bitcoin-dark hover:shadow-glow transition-all duration-300" onClick={handleLearnMore}>
+                {showDetails ? "Hide Details" : "Learn More About Our Technology"} <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
+            
+            {showDetails && (
+              <div className="mt-6 p-4 border border-border rounded-lg bg-secondary/10 animate-fade-in">
+                <h4 className="font-bold mb-2">Technical Details</h4>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Our machine learning pipeline leverages a combination of deep learning models, including LSTM networks and transformer architectures, to process high-dimensional time series data. 
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  We also incorporate NLP for sentiment analysis from news sources and social media, allowing our models to detect market sentiment shifts before they reflect in price movements.
+                </p>
+              </div>
+            )}
           </div>
           
           <div className="space-y-6 animate-fade-up animation-delay-200">
@@ -143,7 +160,9 @@ const PredictionSection = () => {
                   </p>
                 </CardContent>
                 <CardFooter>
-                  <Button variant="outline" size="sm">View Performance History</Button>
+                  <Button variant="outline" size="sm" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
+                    View Performance History
+                  </Button>
                 </CardFooter>
               </Card>
             </div>
