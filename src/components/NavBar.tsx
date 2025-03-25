@@ -3,10 +3,13 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Link, useLocation } from 'react-router-dom';
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +26,12 @@ const NavBar = () => {
 
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
+    
+    if (!isHomePage) {
+      window.location.href = `/#${id}`;
+      return;
+    }
+    
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -37,57 +46,85 @@ const NavBar = () => {
       )}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <a 
-          href="#home" 
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection('home');
-          }}
+        <Link 
+          to="/"
           className="flex items-center gap-2"
         >
           <div className="h-8 w-8 rounded-full bg-bitcoin flex items-center justify-center rotate-12 transform hover:rotate-0 transition-transform duration-300">
             <span className="text-white font-bold text-lg">₿</span>
           </div>
           <span className="text-xl font-bold">BitPredict</span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          <a 
-            href="#home" 
-            className="text-sm font-medium hover:text-primary transition-colors"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('home');
-            }}
-          >
-            Home
-          </a>
-          <a 
-            href="#predictions" 
-            className="text-sm font-medium hover:text-primary transition-colors"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('predictions');
-            }}
-          >
-            Predictions
-          </a>
-          <a 
-            href="#how-it-works" 
-            className="text-sm font-medium hover:text-primary transition-colors"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('how-it-works');
-            }}
-          >
-            How It Works
-          </a>
+          {isHomePage ? (
+            <>
+              <a 
+                href="#home" 
+                className="text-sm font-medium hover:text-primary transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('home');
+                }}
+              >
+                Home
+              </a>
+              <a 
+                href="#predictions" 
+                className="text-sm font-medium hover:text-primary transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('predictions');
+                }}
+              >
+                Predictions
+              </a>
+              <a 
+                href="#how-it-works" 
+                className="text-sm font-medium hover:text-primary transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('how-it-works');
+                }}
+              >
+                How It Works
+              </a>
+            </>
+          ) : (
+            <>
+              <Link 
+                to="/" 
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Home
+              </Link>
+              <Link 
+                to="/predictions" 
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Predictions
+              </Link>
+              <Link 
+                to="/blog" 
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Blog
+              </Link>
+              <Link 
+                to="/about" 
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                About
+              </Link>
+            </>
+          )}
+          
           <Button 
             variant="default" 
             size="sm" 
             className="ml-4 bg-gradient-to-r from-bitcoin to-bitcoin-dark hover:shadow-glow transition-all duration-300"
-            onClick={() => scrollToSection('predictions')}
+            onClick={() => isHomePage ? scrollToSection('predictions') : window.location.href = '/predictions'}
           >
             Get Started
           </Button>
@@ -111,41 +148,84 @@ const NavBar = () => {
         )}
       >
         <div className="container mx-auto px-6 pt-24 pb-12 flex flex-col items-center gap-8">
-          <a 
-            href="#home" 
-            className="text-xl font-medium py-2"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('home');
-            }}
-          >
-            Home
-          </a>
-          <a 
-            href="#predictions" 
-            className="text-xl font-medium py-2"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('predictions');
-            }}
-          >
-            Predictions
-          </a>
-          <a 
-            href="#how-it-works" 
-            className="text-xl font-medium py-2"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('how-it-works');
-            }}
-          >
-            How It Works
-          </a>
+          {isHomePage ? (
+            <>
+              <a 
+                href="#home" 
+                className="text-xl font-medium py-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('home');
+                }}
+              >
+                Home
+              </a>
+              <a 
+                href="#predictions" 
+                className="text-xl font-medium py-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('predictions');
+                }}
+              >
+                Predictions
+              </a>
+              <a 
+                href="#how-it-works" 
+                className="text-xl font-medium py-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('how-it-works');
+                }}
+              >
+                How It Works
+              </a>
+            </>
+          ) : (
+            <>
+              <Link 
+                to="/" 
+                className="text-xl font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                to="/predictions" 
+                className="text-xl font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Predictions
+              </Link>
+              <Link 
+                to="/blog" 
+                className="text-xl font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Blog
+              </Link>
+              <Link 
+                to="/about" 
+                className="text-xl font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </Link>
+            </>
+          )}
+          
           <Button 
             variant="default" 
             size="lg" 
             className="mt-6 w-full sm:w-auto bg-gradient-to-r from-bitcoin to-bitcoin-dark"
-            onClick={() => scrollToSection('predictions')}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              if (isHomePage) {
+                scrollToSection('predictions');
+              } else {
+                window.location.href = '/predictions';
+              }
+            }}
           >
             Get Started
           </Button>
