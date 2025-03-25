@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps 
 } from 'recharts';
-import { 
-  AreaChart, Area, Button, Card, CardContent, CardDescription, CardHeader, CardTitle 
-} from '@/components/ui';
+import { AreaChart, Area } from 'recharts';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getHistoricalData } from '@/lib/priceData';
 import { cn } from '@/lib/utils';
 
