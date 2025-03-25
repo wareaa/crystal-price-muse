@@ -1,6 +1,8 @@
 
 import { Github, Twitter, Mail } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   return (
@@ -19,43 +21,47 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://github.com/bitpredict" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="h-10 w-10 rounded-full bg-background flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
               >
                 <Github size={18} />
               </a>
               <a 
-                href="#" 
+                href="https://twitter.com/bitpredict" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="h-10 w-10 rounded-full bg-background flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
               >
                 <Twitter size={18} />
               </a>
-              <a 
-                href="#" 
+              <Link 
+                to="/contact"
                 className="h-10 w-10 rounded-full bg-background flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
               >
                 <Mail size={18} />
-              </a>
+              </Link>
             </div>
           </div>
           
           <div>
             <h3 className="font-bold text-lg mb-4">Product</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Predictions</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">API</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Documentation</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</a></li>
+              <li><Link to="/predictions" className="text-muted-foreground hover:text-foreground transition-colors">Predictions</Link></li>
+              <li><Link to="/api" className="text-muted-foreground hover:text-foreground transition-colors">API</Link></li>
+              <li><Link to="/docs" className="text-muted-foreground hover:text-foreground transition-colors">Documentation</Link></li>
+              <li><Link to="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-bold text-lg mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">About</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Blog</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Careers</a></li>
+              <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
+              <li><Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link></li>
+              <li><Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
+              <li><Link to="/careers" className="text-muted-foreground hover:text-foreground transition-colors">Careers</Link></li>
             </ul>
           </div>
         </div>
@@ -67,9 +73,9 @@ const Footer = () => {
             © {new Date().getFullYear()} BitPredict. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Service</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Cookies</a>
+            <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link to="/cookies" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Cookies</Link>
           </div>
         </div>
       </div>

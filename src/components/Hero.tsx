@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, DollarSign, Euro, PoundSterling } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import PriceCard from './PriceCard';
 import { getCurrentPrice } from '@/lib/priceData';
@@ -8,6 +8,12 @@ import { getCurrentPrice } from '@/lib/priceData';
 const Hero = () => {
   const [currentPrice, setCurrentPrice] = useState(0);
   const [previousPrice, setPreviousPrice] = useState(0);
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
+  const exchangeRates = {
+    USD: 1,
+    EUR: 0.91,
+    GBP: 0.78
+  };
 
   useEffect(() => {
     // Initial price
@@ -22,6 +28,18 @@ const Hero = () => {
     
     return () => clearInterval(interval);
   }, [currentPrice]);
+
+  const convertedPrice = currentPrice * exchangeRates[selectedCurrency as keyof typeof exchangeRates];
+  const convertedPreviousPrice = previousPrice * exchangeRates[selectedCurrency as keyof typeof exchangeRates];
+
+  const getCurrencySymbol = () => {
+    switch(selectedCurrency) {
+      case 'USD': return '$';
+      case 'EUR': return '€';
+      case 'GBP': return '£';
+      default: return '$';
+    }
+  };
 
   return (
     <section id="home" className="relative min-h-screen pt-28 pb-20 overflow-hidden">
@@ -55,7 +73,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="flex items-center justify-center md:justify-end">
+          <div className="flex flex-col items-center justify-center md:justify-end space-y-6">
             <div className="w-full max-w-md animate-fade-in animation-delay-200">
               <PriceCard 
                 currentPrice={currentPrice} 
@@ -63,6 +81,51 @@ const Hero = () => {
                 isLive={true}
                 className="w-full"
               />
+            </div>
+            
+            <div className="w-full max-w-md bg-secondary/30 p-4 rounded-xl border border-border animate-fade-in animation-delay-300">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-medium">Currency Comparison</h3>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant={selectedCurrency === 'USD' ? 'default' : 'outline'}
+                    className={selectedCurrency === 'USD' ? 'bg-bitcoin hover:bg-bitcoin-dark' : ''}
+                    onClick={() => setSelectedCurrency('USD')}
+                  >
+                    <DollarSign className="h-4 w-4 mr-1" /> USD
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={selectedCurrency === 'EUR' ? 'default' : 'outline'}
+                    className={selectedCurrency === 'EUR' ? 'bg-bitcoin hover:bg-bitcoin-dark' : ''}
+                    onClick={() => setSelectedCurrency('EUR')}
+                  >
+                    <Euro className="h-4 w-4 mr-1" /> EUR
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={selectedCurrency === 'GBP' ? 'default' : 'outline'}
+                    className={selectedCurrency === 'GBP' ? 'bg-bitcoin hover:bg-bitcoin-dark' : ''}
+                    onClick={() => setSelectedCurrency('GBP')}
+                  >
+                    <PoundSterling className="h-4 w-4 mr-1" /> GBP
+                  </Button>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-background p-3 rounded-lg">
+                  <p className="text-sm text-muted-foreground">1 Bitcoin equals</p>
+                  <p className="text-xl font-bold">{getCurrencySymbol()}{convertedPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                </div>
+                <div className="bg-background p-3 rounded-lg">
+                  <p className="text-sm text-muted-foreground">24h Change</p>
+                  <p className={`text-xl font-bold ${convertedPrice > convertedPreviousPrice ? 'text-green-500' : 'text-red-500'}`}>
+                    {getCurrencySymbol()}{Math.abs(convertedPrice - convertedPreviousPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {convertedPrice > convertedPreviousPrice ? ' ↑' : ' ↓'}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
