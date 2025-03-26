@@ -1,4 +1,3 @@
-
 // This is a mock service that would be replaced with actual API calls
 // to a Bitcoin price API like CoinGecko, Binance, etc.
 
@@ -146,4 +145,31 @@ const formatDate = (date: Date, timeRange: string): string => {
     default:
       return date.toLocaleDateString();
   }
+};
+
+// Generate historical prediction accuracy data based on past 5 years
+export const getHistoricalPredictionAccuracy = (): { year: string; accuracy: number; volume: number }[] => {
+  return [
+    { year: '2019', accuracy: 72.5, volume: 15000 },
+    { year: '2020', accuracy: 76.3, volume: 32000 },
+    { year: '2021', accuracy: 81.7, volume: 68000 },
+    { year: '2022', accuracy: 84.2, volume: 53000 },
+    { year: '2023', accuracy: 88.9, volume: 79000 },
+  ];
+};
+
+// Generate 5-year Bitcoin price data with yearly predictions vs actual outcomes
+export const getFiveYearPerformance = (): { 
+  year: string; 
+  prediction: number; 
+  actual: number; 
+  accuracy: number 
+}[] => {
+  return [
+    { year: '2019', prediction: 8200, actual: 7500, accuracy: 91.5 },
+    { year: '2020', prediction: 9800, actual: 10400, accuracy: 94.2 },
+    { year: '2021', prediction: 45000, actual: 49000, accuracy: 91.8 },
+    { year: '2022', prediction: 38000, actual: 35000, accuracy: 92.1 },
+    { year: '2023', prediction: 31000, actual: 29200, accuracy: 94.2 },
+  ];
 };

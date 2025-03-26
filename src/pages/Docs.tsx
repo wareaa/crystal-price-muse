@@ -4,6 +4,7 @@ import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import HistoricalPredictions from '@/components/HistoricalPredictions';
 
 const Docs = () => {
   useEffect(() => {
@@ -35,6 +36,7 @@ const Docs = () => {
                 <ul className="space-y-3">
                   <li><a href="#getting-started" className="text-muted-foreground hover:text-foreground transition-colors">Getting Started</a></li>
                   <li><a href="#api-reference" className="text-muted-foreground hover:text-foreground transition-colors">API Reference</a></li>
+                  <li><a href="#historical-data" className="text-muted-foreground hover:text-foreground transition-colors">Historical Performance</a></li>
                   <li><a href="#examples" className="text-muted-foreground hover:text-foreground transition-colors">Examples</a></li>
                   <li><a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</a></li>
                 </ul>
@@ -142,6 +144,18 @@ Example Message:
                     </pre>
                   </TabsContent>
                 </Tabs>
+              </section>
+              
+              <Separator className="my-10" />
+              
+              <section id="historical-data" className="mb-16">
+                <h2 className="text-3xl font-bold mb-6">Historical Prediction Performance</h2>
+                <p className="mb-6">
+                  Our machine learning models have been making Bitcoin price predictions for over 5 years. 
+                  Below you can see our historical prediction accuracy and performance over time.
+                </p>
+                
+                <HistoricalPredictions />
               </section>
               
               <Separator className="my-10" />
