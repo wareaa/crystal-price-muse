@@ -79,6 +79,7 @@ const Hero = () => {
                 currentPrice={currentPrice} 
                 previousPrice={previousPrice}
                 isLive={true}
+                showFixedDayPrice={true}
                 className="w-full"
               />
             </div>
@@ -116,12 +117,12 @@ const Hero = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-background p-3 rounded-lg">
                   <p className="text-sm text-muted-foreground">1 Bitcoin equals</p>
-                  <p className="text-xl font-bold">{getCurrencySymbol()}{convertedPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                  <p className="text-xl font-bold">{getCurrencySymbol()}{convertedPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
                 </div>
                 <div className="bg-background p-3 rounded-lg">
                   <p className="text-sm text-muted-foreground">24h Change</p>
                   <p className={`text-xl font-bold ${convertedPrice > convertedPreviousPrice ? 'text-green-500' : 'text-red-500'}`}>
-                    {getCurrencySymbol()}{Math.abs(convertedPrice - convertedPreviousPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {getCurrencySymbol()}{Math.abs(convertedPrice - convertedPreviousPrice).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                     {convertedPrice > convertedPreviousPrice ? ' ↑' : ' ↓'}
                   </p>
                 </div>

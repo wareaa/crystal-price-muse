@@ -10,6 +10,7 @@ interface PriceCardProps {
   isPrediction?: boolean;
   predictionDate?: string;
   className?: string;
+  showFixedDayPrice?: boolean;
 }
 
 const PriceCard = ({
@@ -18,9 +19,12 @@ const PriceCard = ({
   isLive = false,
   isPrediction = false,
   predictionDate,
-  className
+  className,
+  showFixedDayPrice = false
 }: PriceCardProps) => {
   const [animateValue, setAnimateValue] = useState(false);
+  const [fixedDayPrice, setFixedDayPrice] = useState(0);
+  
   const percentageChange = previousPrice 
     ? ((currentPrice - previousPrice) / previousPrice) * 100 
     : 0;
@@ -34,12 +38,38 @@ const PriceCard = ({
     }
   }, [currentPrice, previousPrice]);
   
+  useEffect(() => {
+    // Set a fixed day price when component mounts - this will stay the same all day
+    // In a real app, this would be fetched from an API and cached
+    if (showFixedDayPrice) {
+      // Get today's date at midnight to use as a consistent seed
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      // Use the day of month as a simple way to generate a consistent daily price
+      // that's close to the current price but fixed for the day
+      const seed = today.getDate() / 31; // 0-1 value based on day of month
+      const variation = (seed - 0.5) * 2000; // -1000 to +1000 variation
+      
+      setFixedDayPrice(Math.round(currentPrice + variation));
+    }
+  }, [showFixedDayPrice, currentPrice]);
+  
+  // Format price without decimal places for the main display
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
   }).format(currentPrice);
+  
+  // For fixed day price, also format without decimal places
+  const formattedFixedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(fixedDayPrice);
   
   return (
     <div className={cn(
@@ -73,6 +103,13 @@ const PriceCard = ({
         )}>
           {formattedPrice}
         </div>
+        
+        {showFixedDayPrice && (
+          <div className="mt-2 p-2 bg-secondary/20 rounded-lg">
+            <div className="text-sm text-muted-foreground mb-1">Today's Fixed Price</div>
+            <div className="text-xl font-semibold">{formattedFixedPrice}</div>
+          </div>
+        )}
         
         {previousPrice && (
           <div className="flex items-center mt-1.5">
