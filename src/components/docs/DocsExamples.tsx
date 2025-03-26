@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const DocsExamples = () => {
   return (
-    <section id="examples" className="mb-16">
+    <div id="examples" className="mb-16">
       <h2 className="text-3xl font-bold mb-6">Code Examples</h2>
       <p className="mb-6">
         Here are examples of how to use our API and SDK to get Bitcoin price predictions
@@ -141,7 +141,7 @@ if ($err) {
           </pre>
         </TabsContent>
       </Tabs>
-    </section>
+    </div>
   );
 };
 
