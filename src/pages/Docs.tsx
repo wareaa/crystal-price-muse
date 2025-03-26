@@ -187,15 +187,15 @@ def get_daily_prediction():
     response = requests.get(url, headers=headers)
     data = response.json()
     
-    prediction = data["prediction"]
-    print(f"Bitcoin price prediction: ${prediction['price']}")
-    print(f"Confidence: {prediction['confidence']}")
-    print(f"Trend: {prediction['trend']}")
+    prediction_data = data["prediction"]
+    print(f"Bitcoin price prediction: ${prediction_data['price']}")
+    print(f"Confidence: {prediction_data['confidence']}")
+    print(f"Trend: {prediction_data['trend']}")
     
-    return prediction
+    return prediction_data
 
 # Call the function
-prediction = get_daily_prediction()`}
+prediction_data = get_daily_prediction()`}
                   </code>
                 </pre>
               </section>
