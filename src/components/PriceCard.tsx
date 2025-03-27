@@ -40,7 +40,6 @@ const PriceCard = ({
   
   useEffect(() => {
     // Set a fixed day price when component mounts - this will stay the same all day
-    // In a real app, this would be fetched from an API and cached
     if (showFixedDayPrice) {
       // Get today's date at midnight to use as a consistent seed
       const today = new Date();
@@ -97,19 +96,24 @@ const PriceCard = ({
       </div>
       
       <div className="mt-3">
-        <div className={cn(
-          'text-3xl font-bold tracking-tight transition-all',
-          animateValue && (isIncreasing ? 'text-success' : 'text-destructive')
-        )}>
-          {formattedPrice}
-        </div>
-        
-        {showFixedDayPrice && (
-          <div className="mt-2 p-2 bg-secondary/20 rounded-lg">
-            <div className="text-sm text-muted-foreground mb-1">Today's Fixed Price</div>
-            <div className="text-xl font-semibold">{formattedFixedPrice}</div>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
+            <div className={cn(
+              'text-3xl font-bold tracking-tight transition-all',
+              animateValue && (isIncreasing ? 'text-success' : 'text-destructive')
+            )}>
+              {formattedPrice}
+            </div>
+            {isLive && <span className="text-xs font-semibold bg-secondary/60 px-2 py-1 rounded">LIVE</span>}
           </div>
-        )}
+          
+          {showFixedDayPrice && (
+            <div className="mt-3 p-3 bg-secondary/30 rounded-lg">
+              <div className="text-sm text-muted-foreground mb-1">Today's Fixed Price</div>
+              <div className="text-xl font-semibold">{formattedFixedPrice}</div>
+            </div>
+          )}
+        </div>
         
         {previousPrice && (
           <div className="flex items-center mt-1.5">
