@@ -77,7 +77,7 @@ const fetchPrediction = async () => {
     const predictedPrice = data.prediction;
     const confidence = data.confidence;
     
-    console.log(\`Predicted BTC price: $\${predictedPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\`);
+    console.log(\`Predicted BTC price: \$\${predictedPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\`);
     console.log(\`Model confidence: \${confidence}%\`);
     
     return data;
